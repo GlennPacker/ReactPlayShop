@@ -4,7 +4,6 @@ import useFetch from './services/useFetch';
 import { useParams, Link } from 'react-router-dom';
 import PageNotFound from './PageNotFound';
 
-
 export default function Products() {
   const [size, setSize] = useState('');
   const { category } = useParams();
