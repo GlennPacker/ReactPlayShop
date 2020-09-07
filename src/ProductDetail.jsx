@@ -8,6 +8,7 @@ export default function ProductDetail() {
   const { data: product, loading, error } = useFetch(`products/${ id }`)
 
   if (loading) return <Spinner />
+  if (error) throw error;
   return (
     <div id="detail">
       <h1>{product.name}</h1>
