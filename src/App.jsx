@@ -52,11 +52,15 @@ export default function App() {
         <a href="/">
           <img src={`/images/${p.image}`} alt={p.name} />
           <h3>{p.name}</h3>
-          <p>${p.price}</p>
+          <p>£{p.price}</p>
         </a>
       </div>
     );
   }
+
+  const filteredProducts = size ?
+    products.filter(r => r.skus.find(f => f.size === +size)) :
+    products;
 
   return (
     <>
@@ -73,7 +77,7 @@ export default function App() {
             </select>
           </section>
           <section id="products">
-            { products.map(renderProduct) }
+            { filteredProducts.map(renderProduct) }
           </section>
         </main>
       </div>
