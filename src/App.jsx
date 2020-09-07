@@ -6,6 +6,7 @@ import Products from './Products';
 import { Routes, Route } from 'react-router-dom';
 import ProductDetail from './ProductDetail';
 import Cart from './Cart';
+import PageNotFound from './PageNotFound';
 
 export default function App() {
   return (
@@ -16,8 +17,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={ <h1>Welcome</h1>} />
             <Route path="/:category" element={<Products />} />
-            <Route path="/detail" element={<ProductDetail />} />
+            <Route path="/:category/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
+            <Route element={ <PageNotFound /> } />
           </Routes>
         </main>
       </div>
