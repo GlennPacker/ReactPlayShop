@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -7,10 +7,17 @@ import { Routes, Route } from 'react-router-dom';
 import ProductDetail from './ProductDetail';
 import Cart from './Cart';
 import PageNotFound from './PageNotFound';
-import { useState } from 'react';
 
 export default function App() {
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(() => {
+        try {
+            return JSON.parse(localStorage.getItem('cart')) ?? []
+        } catch {
+            return [];
+        }
+    });
+
+    useEffect(() => localStorage.setItem('cart', JSON.stringify(cart)), [cart])
 
     const addToCart = (id, sku) => {
         setCart((items) => {
