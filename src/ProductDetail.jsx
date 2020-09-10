@@ -5,10 +5,10 @@ import Spinner from './Spinner';
 import PageNotFound from './PageNotFound';
 import { useState } from 'react';
 
-export default function ProductDetail() {
+export default function ProductDetail({addToCart}) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [sku, setSku] = useState(null);
+  const [sku, setSku] = useState(0);
   const { data: product, loading, error } = useFetch(`products/${ id }`)
 
   if (loading || !product) return <Spinner />
@@ -23,10 +23,10 @@ export default function ProductDetail() {
 
         <select
             id="size"
-            value={sku}
+            value={sku || 0}
             onChange={ (e) => setSku(e.target.value) }
         >
-            { !sku && <option value="">What Size?</option> }
+            { !sku && <option value="0">What Size?</option> }
             {
                 product.skus.map(item => (
                     <option
@@ -43,7 +43,10 @@ export default function ProductDetail() {
         <button
             disabled={!sku}
             className="btn btn-primary"
-            onClick={() => navigate("/cart") }
+            onClick={() => {
+                addToCart(id, sku);
+                navigate("/cart")
+            }}
         >
             Add To Cart
         </button>
